@@ -40,6 +40,6 @@ void main()
 	vec3 nml = normalize(p - (ro+rd*t));//N
 	vec3 bgCol = background(u_time, rd);
 	rd = reflect(rd, nml);
-	vec3 col = background(u_time, rd) * vec3(0.9, 0.8, 1.0);
+	vec3 col = background(u_time, rd) * vec3(0.9,0.8, 1.0);
 	gl_FragColor = vec4( mix(bgCol, col, step(0.0, t)), 1.0 );
 }
