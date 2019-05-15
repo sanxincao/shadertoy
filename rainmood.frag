@@ -18,6 +18,7 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
+uniform sampler2D u_texture_0;
 // Maximum number of cells a ripple can cross.
 #define MAX_RADIUS 2
 
@@ -79,7 +80,8 @@ void main( )
 
     float intensity = mix(0.01, 0.15, smoothstep(0.1, 0.6, abs(fract(0.05*u_time + 0.5)*2.-1.)));
     vec3 n = vec3(circles, sqrt(1. - dot(circles, circles)));
-    vec3 color = vec3(0.1176, 0.5451, 0.7137)+
+    vec3 color =texture2D(u_texture_0, uv/resolution - intensity*n.xy).rgb+
+    // vec3(0.1176, 0.5451, 0.7137)+
     5.*pow(clamp(dot(n, normalize(vec3(1.0, 0.7, 0.5))), 0., 1.), 6.);
     //texture(iChannel0, uv/resolution - intensity*n.xy).rgb + 
 	gl_FragColor = vec4(color, 1.0);

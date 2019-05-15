@@ -19,12 +19,14 @@
 #ifdef GL_ES
 precision mediump float;
 #endif
-uniform vec3 u_resolution;
-uniform vec4 u_mouse;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
 uniform float u_time;
+//uniform sampler2D iChannel0;
+uniform sampler2D u_texture_0;
 #define S(a, b, t) smoothstep(a, b, t)
 //#define CHEAP_NORMALS
-#define HAS_HEART
+//#define HAS_HEART
 #define USE_POST_PROCESSING
 
 vec3 N13(float p) {
@@ -118,22 +120,23 @@ vec2 Drops(vec2 uv, float t, float l0, float l1, float l2) {
     return vec2(c, max(m1.y*l0, m2.y*l1));
 }
 
-void main( )
+void main()
 {
 	vec2 uv = (gl_FragCoord.xy-.5*u_resolution.xy) / u_resolution.y;
     vec2 UV = gl_FragCoord.xy/u_resolution.xy;
-    vec3 M = u_mouse.xyz/u_resolution.xyz;
+    //vec2 st =gl_FragCoord.xy/u_resolution.xy;
+    vec2 M = u_mouse.xy/u_resolution.xy;
     float T = u_time+M.x*2.;
     
     #ifdef HAS_HEART
     T = mod(u_time, 102.);
-    T = mix(T, M.x*102., M.z>0.?1.:0.);
+    T = mix(T, M.x*102., M.y>0.?1.:0.);
     #endif
     
     
     float t = T*.2;
     
-    float rainAmount = u_mouse.z>0. ? M.y : sin(T*.05)*.3+.7;
+    float rainAmount = u_mouse.y>0. ? M.y : sin(T*.05)*.3+.7;
     
     float maxBlur = mix(3., 6., rainAmount);
     float minBlur = 2.;
@@ -165,10 +168,10 @@ void main( )
     uv *= 1.5;								// zoom out a bit more
     t *= .25;
     #else
-    float zoom = -cos(T*.2);
-    uv *= .7+zoom*.3;
+    //float zoom = -cos(T*.2);
+    //uv *= .7+zoom*.3;
     #endif
-    UV = (UV-.5)*(.9+zoom*.1)+.5;
+  //  UV = (UV-.5)*(.9+zoom*.1)+.5;
     
     float staticDrops = S(-.5, 1., rainAmount)*2.;
     float layer1 = S(.25, .75, rainAmount);
@@ -191,29 +194,11 @@ void main( )
     c.y *= 1.-S(80., 100., T)*.8;
     #endif
     
-    float focus = mix(maxBlur-c.y, minBlur, S(.1, .2, c.x));
-    //vec3 col = textureLod(iChannel0, UV+n, focus).rgb;
-    vec3 col =textureLod(vec3(0.0,0.0,0.0),UV+n, focus).rgb;
-    //vec3 col =vec3(1.0,1.0,1.0);
+    float focus = mix(maxBlur-c.y, minBlur, S(.1, .2, c.x));  
+    vec3 col =texture2D(u_texture_0 ,UV+n*u_time).rgb;
     
-    #ifdef USE_POST_PROCESSING
-    t = (T+3.)*.5;										// make time sync with first lightnoing
-    float colFade = sin(t*.2)*.5+.5+story;
-    col *= mix(vec3(1.), vec3(.8, .9, 1.3), colFade);	// subtle color shift
-    float fade = S(0., 10., T);							// fade in at the start
-    float lightning = sin(t*sin(t*10.));				// lighting flicker
-    lightning *= pow(max(0., sin(t+sin(t))), 10.);		// lightning flash
-    col *= 1.+lightning*fade*mix(1., .1, story*story);	// composite lightning
-    col *= 1.-dot(UV-=.5, UV);							// vignette
-    											
-    #ifdef HAS_HEART
-    	col = mix(pow(col, vec3(1.2)), col, heart);
-    	fade *= S(102., 97., T);
-    #endif
     
-    col *= fade;										// composite start and end fade
-    #endif
-    
+   
     //col = vec3(heart);
     gl_FragColor = vec4(col, 1.);
 }
