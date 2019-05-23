@@ -17,7 +17,7 @@
 // Rain sounds:
 
 // https://soundcloud.com/elirtmusic/sleeping-sound-rain-and-thunder-1-hours
-#version 330 core
+
 #ifdef GL_ES
 precision mediump float;
 #endif
