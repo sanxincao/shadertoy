@@ -89,10 +89,10 @@ vec3 Rainbow(vec3 c) {
 void main()
 {
 	vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-	uv.x -= .5;
-    uv.x *= u_resolution.x/u_resolution.y;
+	//uv.x -= .5;
+    //uv.x *= u_resolution.x/u_resolution.y;
     
-    float n = hash12(uv+10.);
+    //float n = hash12(uv+10.);
     float t = u_time*.5;
     
     vec3 c = vec3(0.);
@@ -107,7 +107,7 @@ void main()
         p.x *= 1.6;
         c += explosion(uv, p, id, et);
     }
-    c = Rainbow(c);
+    //c = Rainbow(c);
     
     gl_FragColor = vec4(c, 1.);
 }
