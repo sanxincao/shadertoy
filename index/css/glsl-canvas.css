@@ -1,0 +1,34 @@
+html, body {
+    width: 100%;
+	height: 100%;
+}
+
+body {
+	display: flex;
+	margin: 0;
+	background: #111;
+    overflow: hidden;
+}
+
+.glsl-canvas{
+	width: 100%;
+    height: 100%;
+}
+
+.footer-nav {
+    position: fixed;
+    z-index: 99999;
+    bottom: 0;
+    display: none;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+.show, .footer-nav:hover {
+    display: block;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+	<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2,user-scalable=yes">
+		<title>INDEX</title>
+	
+		<link type="text/css" href="/css/glsl-canvas.css" rel="stylesheet"/>
+		<script type="text/javascript" src="/js/stats.min.js"></script>
+		<script type="text/javascript" src="/js/script.js"></script>
+		<script type="text/javascript" src="/js/glsl-canvas.min.js"></script>
+	</head>
+
+	<body>
+		<canvas class="glsl-canvas" data-fragment-url="shaders/fragment.glsl"></canvas>
+		<div class="footer-nav">
+			<a></a>
+		</div>
+	</body>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script>
+		/*
+		stats.js
+		*/
+		var stats = new Stats();
+		stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+		document.body.appendChild(stats.dom);
+
+		
+		var glsl = GlslCanvas.of(document.querySelector('.glsl-canvas'));
+		glsl.setUniforms({});
+		glsl.setTexture('u_texture_0', '/img/texture.jpg', {
+			filtering: 'mipmap',
+			repeat: true,
+		});
+		glsl.on('render', function () {
+			stats.end();
+			
+			stats.begin();
+		});
+	</script>
+
+	</html>
