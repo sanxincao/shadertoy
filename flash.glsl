@@ -1,11 +1,12 @@
 #version 330
 in INTERFACE 
-{	vec2 uv;
+{
+    vec2 uv;
  	float on;
 	float id;
      } In;
-uniform sampler2D textureFlash; 
-uniform float time;
+uniform sampler2D texture0; 
+uniform float u_time;
 uniform vec3 baseColor;
 #define numberSprites 8.0
 out vec4 fragColor;
