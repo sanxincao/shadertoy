@@ -1,14 +1,15 @@
-#How to use
+# How to use
 
 
 Load the latest version of glsl-canvas.js on your page by adding this line to your HTML:
 
 <script type="text/javascript" src="https://rawgit.com/actarian/glsl-canvas/master/dist/glsl-canvas.min.js"></script>
 
-##With npm
+## With npm
 
 If you are using npm package manager type this command on your terminal:
-
+ 
+ 
 npm install glsl-canvas-js --save
 
 ##Run with html
