@@ -1,25 +1,28 @@
-#How to use
+# How to use
 
 
 Load the latest version of glsl-canvas.js on your page by adding this line to your HTML:
 
-<script type="text/javascript" src="https://rawgit.com/actarian/glsl-canvas/master/dist/glsl-canvas.min.js"></script>
+"""  <script type="text/javascript" src="https://rawgit.com/actarian/glsl-canvas/master/dist/glsl-canvas.min.js"></script> """
 
-##With npm
+## With npm
 
 If you are using npm package manager type this command on your terminal:
-
+ 
+ 
 npm install glsl-canvas-js --save
 
-##Run with html
+##  Run with html
 
 Add a canvas element on your page with class name glsl-canvas and assign a shader through a url using the data-fragment-url attribute.
+ 
+
 Or write your shader directly in code using the data-fragment attribute.
 
-<canvas class="glsl-canvas" data-fragment-url="fragment.glsl" width="500" height="500"></canvas>
-GlslCanvas will automatically load a WebGL context in that <canvas> element, compile the shader and animate it for you.
+"""<canvas class="glsl-canvas" data-fragment-url="fragment.glsl" width="500" height="500"></canvas>
+GlslCanvas will automatically load a WebGL context in that <canvas> element, compile the shader and animate it for you."""
 
-##Run with javascript
+##  Run with javascript
 Create a <canvas> element and attach a new instance of GlslCanvas.
 
 let canvas = document.createElement('canvas');
@@ -27,7 +30,7 @@ let glsl = new GlslCanvas(canvas);
 All the .glsl-canvas instances will be stored in the GlslCanvas.items array.
 
 
-##Default Uniforms
+##  Default Uniforms
 These uniforms are automatically loaded for you.
 
 name	
@@ -67,7 +70,7 @@ play
 pause	
 toggle	
 destroy	
-##Tips
+##  Tips
 You can change the content of the shader as many times you want. Here are some examples:
 
 // load only the fragment shader
